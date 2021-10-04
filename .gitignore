@@ -353,3 +353,6 @@ MigrationBackup/
 
 # Mac-specific
 .DS_Store
+
+# Hotel data
+6-NLP/data/Hotel_Reviews.csv
