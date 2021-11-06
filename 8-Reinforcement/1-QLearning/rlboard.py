@@ -47,6 +47,7 @@ class Board:
         wolf = 2
         tree = 3
         apple = 4
+
     def __init__(self,width,height,size=50):
         self.width = width
         self.height = height
@@ -193,3 +194,36 @@ class Board:
                     self.move(a) # do the actual move
                     break
             n+=1
+
+
+class BoardExt(Board):
+    def __init__(self, width, height, energy=10, fatigue=0, size=50):
+        super().__init__(width, height, size=size)
+        self.energy = energy
+        self.fatigue = fatigue
+        self.apple_energy = 10
+        self.rest_bonus = 5
+
+    def random_start(self, energy=10, fatigue=0):
+        self.energy = energy
+        self.fatigue = fatigue
+        return super().random_start()
+
+    def move_pos(self, pos, dpos):
+        self.energy -= 1
+        self.fatigue += 1
+        return super().move_pos(pos, dpos)
+
+    def eat(self):
+        self.energy += self.apple_energy
+
+    def rest(self):
+        self.fatigue -= self.rest_bonus
+        if self.fatigue < 0:
+            self.fatigue = 0
+
+    def attack_wolf(self):
+        if self.energy > 5 and self.fatigue < 5:
+            return True
+        else:
+            return False
